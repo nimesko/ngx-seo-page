@@ -1,0 +1,14 @@
+{
+  "name": "ngx-seo-page",
+  "version": "1.0.0",
+  "author": {
+    "name": "Rogerio Tristão Junior",
+    "email": "rogerio.junior@outlook.com",
+    "url": "https://github.com/nimesko"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^7.2.0",
+    "@angular/core": "^7.2.0"
+  }
+}

@@ -17,6 +17,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngx-seo-page": [
+        "dist/ngx-seo-page"
+      ],
+      "ngx-seo-page/*": [
+        "dist/ngx-seo-page/*"
+      ]
+    }
   }
 }
