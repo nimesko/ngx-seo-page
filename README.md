@@ -1,27 +1,63 @@
-# NgxLibrary
+# Ngx SEO Page
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.1.
+Library that facilitates the management of canonical links, structured data, metatags and the title of web pages built in Angular.
 
-## Development server
+## Description
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+This library provides a easy way to manage the structured data, canonical link and metatag in any place of your code in any context (**server context or browser context**).
 
-## Code scaffolding
+A common place that you can use is inside the *resolve* method of *Resolve* interface, because after the fetch of data, you can customize the title, add custom microdata and metatags to improve the SEO or usability of your application
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Installation
 
-## Build
+Use the node package manager to install
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+```bash
+npm i ngx-seo-page
+```
 
-## Running unit tests
+or yarn
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+yarn add ngx-seo-page
+```
 
-## Running end-to-end tests
+## Usage
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```typescript
+import { PageService } from 'ngx-seo-page';
 
-## Further help
+...
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+constructor(
+  private pageService: PageService
+) {}
+
+ngOnInit(): void {
+    this.pageService.updatePage({
+      title: 'Some Random Title',
+      microdata: {
+        '@type': 'WebSite',
+        name: 'Github',
+        url: 'https://github.com'
+      },
+      metatags: [
+        { name: 'description', content: 'Description XPTO' },
+        { property: 'og:url', content: 'https://github.com/' },
+        { property: 'og:title', content: 'Github' }
+      ],
+      canonical: 'https://www.github.com/'
+    });
+}
+
+...
+```
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details

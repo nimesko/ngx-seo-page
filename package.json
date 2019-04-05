@@ -1,18 +1,36 @@
 {
   "name": "ngx-seo-page",
+  "description": "Library that facilitates the management of canonical links, structured data, metatags and the title of web pages built in Angular.",
+  "keywords": [
+    "angular",
+    "seo",
+    "structured data",
+    "canonical links"
+  ],
   "version": "1.0.0",
   "author": {
     "name": "Rogerio Tristão Junior",
     "email": "rogerio.junior@outlook.com",
     "url": "https://github.com/nimesko"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nimesko/ngx-seo-page"
+  },
+  "homepage": "https://github.com/nimesko/ngx-seo-page",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
+    "prebuild": "rimraf ./dist",
+    "build": "ng build ngx-seo-page",
+    "copy-license": "copy LICENSE ./dist/ngx-seo-page",
+    "copy-readme": "copy README.md ./dist/ngx-seo-page",
+    "copy-files": "npm run copy-license && npm run copy-readme",
+    "npm-pack": "cd dist/ngx-seo-page && npm pack",
+    "package": "npm run build && npm run copy-files && npm run npm-pack",
+    "test": "ng test ngx-seo-page",
+    "lint": "ng lint ngx-seo-page",
     "e2e": "ng e2e"
   },
   "private": true,
@@ -36,10 +54,11 @@
     "@angular/cli": "~7.3.1",
     "@angular/compiler-cli": "~7.2.0",
     "@angular/language-service": "~7.2.0",
-    "@types/node": "~8.9.4",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "~8.9.4",
     "codelyzer": "~4.5.0",
+    "copy": "^0.3.2",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~3.1.1",
@@ -49,6 +68,7 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "ng-packagr": "^4.2.0",
     "protractor": "~5.4.0",
+    "rimraf": "^2.6.3",
     "ts-node": "~7.0.0",
     "tsickle": ">=0.34.0",
     "tslib": "^1.9.0",
