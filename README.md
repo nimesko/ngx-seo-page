@@ -11,7 +11,7 @@
   <img alt="Collaborators" src="https://img.shields.io/npm/collaborators/ngx-seo-page.svg">
 </div>
 <div align="center">
-  <a href="https://nodei.co/npm/ngx-image/" target="_blank">
+  <a href="https://nodei.co/npm/ngx-seo-page/" target="_blank">
     <img src="https://nodei.co/npm/ngx-seo-page.png?downloads=true&downloadRank=true&stars=true">
   </a>
 </div>
