@@ -20,7 +20,7 @@ before_script:
    - npm install -g --silent @angular/cli
 
 script:
-   - ng test --single-run --code-coverage
+   - npm run test
 
 after_success:
    - npm run codacy
