@@ -7,7 +7,7 @@
     "structured data",
     "canonical links"
   ],
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "Rogerio Tristão Junior",
     "email": "rogerio.junior@outlook.com",
@@ -29,11 +29,12 @@
     "copy-files": "npm run copy-license && npm run copy-readme",
     "npm-pack": "cd dist/ngx-seo-page && npm pack",
     "package": "npm run build && npm run copy-files && npm run npm-pack",
-    "test": "ng test ngx-seo-page",
+    "test": "ng test ngx-seo-page --code-coverage",
+    "test:watch": "ng test ngx-seo-page --watch --code-coverage",
     "lint": "ng lint ngx-seo-page",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "codacy": "cat ./coverage/ngx-seo-page/lcov.info | ./node_modules/.bin/codacy-coverage -p ."
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~7.2.0",
     "@angular/common": "~7.2.0",
@@ -45,7 +46,7 @@
     "@angular/router": "~7.2.0",
     "core-js": "^2.5.4",
     "rxjs": "~6.3.3",
-    "tslib": "^1.9.0",
+    "tslib": "^1.9.3",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
@@ -54,25 +55,26 @@
     "@angular/cli": "~7.3.1",
     "@angular/compiler-cli": "~7.2.0",
     "@angular/language-service": "~7.2.0",
-    "@types/jasmine": "~2.8.8",
-    "@types/jasminewd2": "~2.0.3",
-    "@types/node": "~8.9.4",
-    "codelyzer": "~4.5.0",
+    "@types/jasmine": "~3.3.12",
+    "@types/jasminewd2": "~2.0.6",
+    "@types/node": "~12.0.0",
+    "codacy-coverage": "^3.4.0",
+    "codelyzer": "~5.0.1",
     "copy": "^0.3.2",
-    "jasmine-core": "~2.99.1",
+    "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
-    "karma": "~3.1.1",
+    "karma": "~4.1.0",
     "karma-chrome-launcher": "~2.2.0",
-    "karma-coverage-istanbul-reporter": "~2.0.1",
-    "karma-jasmine": "~1.1.2",
-    "karma-jasmine-html-reporter": "^0.2.2",
-    "ng-packagr": "^4.2.0",
+    "karma-coverage-istanbul-reporter": "~2.0.5",
+    "karma-jasmine": "~2.0.1",
+    "karma-jasmine-html-reporter": "^1.4.2",
+    "ng-packagr": "^5.1.0",
     "protractor": "~5.4.0",
     "rimraf": "^2.6.3",
-    "ts-node": "~7.0.0",
+    "ts-node": "~8.1.0",
     "tsickle": ">=0.34.0",
-    "tslib": "^1.9.0",
-    "tslint": "~5.11.0",
+    "tslib": "^1.9.3",
+    "tslint": "~5.16.0",
     "typescript": "~3.2.2"
   }
 }
