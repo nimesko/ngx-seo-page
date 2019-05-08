@@ -18,7 +18,7 @@
 
 ## Description
 
-This library provides a easy way to manage the structured data, canonical link and metatag in any place of your code in any context (**server context or browser context**).
+This library provides a easy way to manage the structured data, canonical link and metatag in any place of your code.
 
 A common place that you can use is inside the *resolve* method of *Resolve* interface, because after the fetch of data, you can customize the title, add custom microdata and metatags to improve the SEO or usability of your application
 
@@ -71,6 +71,10 @@ ngOnInit(): void {
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
+
+## Good to Know
+
+This library works with SSR (Server Side Rendering, aka Universal Application).
 
 ## License
 
