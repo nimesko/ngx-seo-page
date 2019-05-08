@@ -1,6 +1,6 @@
-import { Inject, Injectable } from '@angular/core';
-import { Meta, Title, MetaDefinition } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
+import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 
 import { Page } from './page.model';
 
@@ -9,8 +9,9 @@ import { Page } from './page.model';
 })
 export class PageService {
 
+  private metatags: HTMLMetaElement[];
+
   private readonly microdataBaseObject: object;
-  private readonly metatags: HTMLMetaElement[];
   private readonly microdataElement: HTMLScriptElement;
   private readonly canonicalLinkElement: HTMLLinkElement;
 
@@ -37,9 +38,9 @@ export class PageService {
   }
 
   updateMetatags(metatags: MetaDefinition[] = []): void {
-    this.metatags.forEach(metatag => this.meta.removeTagElement(metatag));
+    this.metatags.map(metatag => this.meta.removeTagElement(metatag));
     if (metatags) {
-      metatags.forEach(metatag => this.metatags.push(this.meta.addTag(metatag)));
+      this.metatags = metatags.map(metatag => this.meta.addTag(metatag));
     }
   }
 
