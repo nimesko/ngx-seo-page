@@ -5,7 +5,9 @@
     "angular",
     "seo",
     "structured data",
-    "canonical links"
+    "canonical links",
+    "angular universal",
+    "ssr"
   ],
   "version": "1.0.1",
   "author": {
@@ -29,6 +31,7 @@
     "copy-files": "npm run copy-license && npm run copy-readme",
     "npm-pack": "cd dist/ngx-seo-page && npm pack",
     "package": "npm run build && npm run copy-files && npm run npm-pack",
+    "commit": "git-cz",
     "test": "ng test ngx-seo-page --code-coverage",
     "test:watch": "ng test ngx-seo-page --watch --code-coverage",
     "lint": "ng lint ngx-seo-page",
@@ -50,17 +53,22 @@
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.13.0",
-    "@angular-devkit/build-ng-packagr": "~0.13.0",
+    "@angular-devkit/build-angular": "~0.13.9",
+    "@angular-devkit/build-ng-packagr": "~0.13.9",
     "@angular/cli": "~7.3.1",
     "@angular/compiler-cli": "~7.2.0",
     "@angular/language-service": "~7.2.0",
+    "@commitlint/cli": "^7.6.0",
+    "@commitlint/config-conventional": "^7.6.0",
     "@types/jasmine": "~3.3.12",
     "@types/jasminewd2": "~2.0.6",
     "@types/node": "~12.0.0",
     "codacy-coverage": "^3.4.0",
     "codelyzer": "~5.0.1",
+    "commitizen": "^3.1.1",
     "copy": "^0.3.2",
+    "cz-conventional-changelog": "^2.1.0",
+    "husky": "^2.2.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.1.0",
@@ -76,5 +84,20 @@
     "tslib": "^1.9.3",
     "tslint": "~5.16.0",
     "typescript": "~3.2.2"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
