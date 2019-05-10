@@ -18,7 +18,7 @@
 
 ## Description
 
-Building an angled application is pretty easy, but leaving it with a good score on the crawlers already starts to complicate. With the advent of new techniques for SEO and how the web pages are built, questions arise that begin to get more complex in your project.
+Building an angular application is pretty easy, but leaving it with a good score on the crawlers already starts to complicate. With the advent of new techniques for SEO and how the web pages are built, questions arise that begin to get more complex in your project.
 
 Two of them are: [canonical links](https://en.wikipedia.org/wiki/Canonical_link_element) and [structured data](https://schema.org/)
 
