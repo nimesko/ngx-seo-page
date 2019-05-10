@@ -1,6 +1,6 @@
 {
   "name": "ngx-seo-page",
-  "description": "Library that facilitates the management of canonical links, structured data, metatags and the title of web pages built in Angular.",
+  "description": "Library that facilitates the management of canonical links, metatags, structured data and the title of web pages.",
   "keywords": [
     "angular",
     "seo",
@@ -9,7 +9,7 @@
     "angular universal",
     "ssr"
   ],
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": {
     "name": "Rogerio Tristão Junior",
     "email": "rogerio.junior@outlook.com",
