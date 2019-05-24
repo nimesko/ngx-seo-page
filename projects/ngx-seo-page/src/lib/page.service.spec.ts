@@ -1,7 +1,8 @@
-import { TestBed } from '@angular/core/testing';
 import { DOCUMENT } from '@angular/common';
+import { TestBed } from '@angular/core/testing';
 import { MetaDefinition } from '@angular/platform-browser';
 
+import { SchemaData } from './page.model';
 import { PageService } from './page.service';
 
 describe('PageService', () => {
@@ -13,7 +14,7 @@ describe('PageService', () => {
   let pageService: PageService;
   let doc: Document;
   let spyOfUpdateMetatags: any;
-  let spyOfUpdateMicrodata: any;
+  let spyOfUpdateSchema: any;
   let spyOfUpdateCanonicalLink: any;
 
   function generateTitle(): string {
@@ -47,7 +48,7 @@ describe('PageService', () => {
       .reduce((a, b) => ({ ...a, ...b })) as MetaDefinition[];
   }
 
-  function generateMicrodata(): object {
+  function generateSchema(): SchemaData {
     return {
       '@type': 'WebSite',
       name: 'Github',
@@ -60,7 +61,7 @@ describe('PageService', () => {
     pageService = TestBed.get(PageService);
     doc = TestBed.get(DOCUMENT);
     spyOfUpdateMetatags = spyOn(pageService, 'updateMetatags').and.callThrough();
-    spyOfUpdateMicrodata = spyOn(pageService, 'updateMicrodata').and.callThrough();
+    spyOfUpdateSchema = spyOn(pageService, 'updateSchema').and.callThrough();
     spyOfUpdateCanonicalLink = spyOn(pageService, 'updateCanonicalLink').and.callThrough();
   });
 
@@ -68,6 +69,14 @@ describe('PageService', () => {
     expect(pageService).toBeDefined();
     expect(doc.querySelectorAll(queryCanonicalLink).length).toEqual(0);
     expect(doc.querySelectorAll(queryScriptApplicationJsonLd).length).toEqual(0);
+  });
+
+  it('should not update the title', () => {
+    const previousTitle = doc.title;
+    const spyOnSetTitle = spyOn(pageService, 'setTitle').and.callThrough();
+    pageService.updatePage({});
+    expect(spyOnSetTitle).toHaveBeenCalled();
+    expect(doc.title).toBe(previousTitle);
   });
 
   it('should update just the title', () => {
@@ -85,12 +94,12 @@ describe('PageService', () => {
     expect(doc.querySelectorAll(queryScriptApplicationJsonLd).length).toEqual(0);
     expect(doc.querySelectorAll(queryCanonicalLink).length).toEqual(0);
     expect(spyOfUpdateMetatags).toHaveBeenCalled();
-    expect(spyOfUpdateMicrodata).toHaveBeenCalled();
+    expect(spyOfUpdateSchema).toHaveBeenCalled();
     expect(spyOfUpdateCanonicalLink).toHaveBeenCalled();
     expect(previousMetatags.length).toEqual(doc.querySelectorAll(queryMetaTag).length);
     expect(previousMetatags).toEqual(doc.querySelectorAll(queryMetaTag));
     pageService.updateMetatags();
-    pageService.updateMicrodata();
+    pageService.updateSchema();
     pageService.updateCanonicalLink();
   });
 
@@ -110,7 +119,7 @@ describe('PageService', () => {
     expect(doc.querySelectorAll(queryScriptApplicationJsonLd).length).toEqual(0);
     expect(doc.querySelectorAll(queryCanonicalLink).length).toEqual(0);
     expect(spyOfUpdateMetatags).toHaveBeenCalled();
-    expect(spyOfUpdateMicrodata).toHaveBeenCalled();
+    expect(spyOfUpdateSchema).toHaveBeenCalled();
     expect(spyOfUpdateCanonicalLink).toHaveBeenCalled();
     expect(metatags).not.toEqual(convertMetaElementToMetaDefinition(previousMetatags));
     metatags.forEach(meta => {
@@ -118,31 +127,31 @@ describe('PageService', () => {
       expect(doc.querySelector(`meta${properties}`)).toBeDefined();
     });
     pageService.updateMetatags();
-    pageService.updateMicrodata();
+    pageService.updateSchema();
     pageService.updateCanonicalLink();
   });
 
-  it('should update the title and microdata', () => {
+  it('should update the title and schema', () => {
     const previousTitle = doc.title;
     const previousMetatags = doc.querySelectorAll(queryMetaTag);
     const previousMetaDefinition = convertMetaElementToMetaDefinition(previousMetatags);
-    const microdata: object = generateMicrodata();
+    const schema: SchemaData = generateSchema();
     const title = generateTitle();
     expect(doc.title).toEqual(previousTitle);
     expect(doc.querySelectorAll(queryScriptApplicationJsonLd).length).toEqual(0);
     expect(doc.querySelectorAll(queryCanonicalLink).length).toEqual(0);
     pageService.updatePage({
-      title, microdata
+      title, schema
     });
     expect(doc.querySelectorAll(queryScriptApplicationJsonLd).length).toEqual(1);
     expect(doc.title).toEqual(title);
     expect(doc.title).not.toEqual(previousTitle);
     expect(spyOfUpdateMetatags).toHaveBeenCalled();
-    expect(spyOfUpdateMicrodata).toHaveBeenCalled();
+    expect(spyOfUpdateSchema).toHaveBeenCalled();
     expect(spyOfUpdateCanonicalLink).toHaveBeenCalled();
     expect(convertMetaElementToMetaDefinition(doc.querySelectorAll(queryMetaTag))).toEqual(previousMetaDefinition);
     pageService.updateMetatags();
-    pageService.updateMicrodata();
+    pageService.updateSchema();
     pageService.updateCanonicalLink();
   });
 
@@ -159,11 +168,11 @@ describe('PageService', () => {
     expect(doc.title).not.toEqual(previousTitle);
     expect(doc.querySelectorAll(queryCanonicalLink).length).toEqual(1);
     expect(spyOfUpdateMetatags).toHaveBeenCalled();
-    expect(spyOfUpdateMicrodata).toHaveBeenCalled();
+    expect(spyOfUpdateSchema).toHaveBeenCalled();
     expect(spyOfUpdateCanonicalLink).toHaveBeenCalled();
     expect(convertMetaElementToMetaDefinition(doc.querySelectorAll(queryMetaTag))).toEqual(previousMetaDefinition);
     pageService.updateMetatags();
-    pageService.updateMicrodata();
+    pageService.updateSchema();
     pageService.updateCanonicalLink();
   });
 
