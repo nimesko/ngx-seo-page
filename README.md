@@ -50,7 +50,7 @@ import { ApiService } from '@application/core/api/api.service';
 @Injectable({
   providedIn: 'root'
 })
-export class DMCAResolverService implements Resolve<any> {
+export class RandomResolverService implements Resolve<any> {
 
   constructor(
     private apiService: ApiService,
@@ -62,7 +62,7 @@ export class DMCAResolverService implements Resolve<any> {
       tap(() => {
         this.pageService.updatePage({
           title: 'Some Random Title',
-          microdata: {
+          schema: {
             '@type': 'WebSite',
             name: 'Github',
             url: 'https://github.com'
@@ -91,7 +91,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PageService } from 'ngx-seo-page';
 
 @Component({
-  selector: 'app-random',
+  selector: 'nmk-random',
   templateUrl: './random.component.html',
   styleUrls: ['./random.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -105,7 +105,7 @@ export class RandomComponent implements OnInit {
   ngOnInit() {
     this.pageService.updatePage({
       title: 'Some Random Title',
-      microdata: {
+      schema: {
         '@type': 'WebSite',
         name: 'Github',
         url: 'https://github.com'

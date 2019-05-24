@@ -1,8 +1,13 @@
 import { MetaDefinition } from '@angular/platform-browser';
 
 export interface Page {
-  title: string;
+  title?: string;
   metatags?: MetaDefinition[];
-  microdata?: object;
+  schema?: SchemaData;
   canonical?: string;
+}
+
+export interface SchemaData {
+  '@type': string;
+  [propname: string]: string | number | boolean | SchemaData;
 }
