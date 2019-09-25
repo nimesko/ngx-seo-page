@@ -26,7 +26,7 @@ It is of utmost importance to use these two artifacts to succeed in SEO. And as 
 
 ## Installation
 
-Use the node package manager to install: `npm i ngx-seo-page` or yarn  `yarn add ngx-seo-page` and its done!
+Use the node package manager to install: `npm i ngx-seo-page` or yarn  `yarn add ngx-seo-page` and its done!
 
 There is no more configuration to install.
 
