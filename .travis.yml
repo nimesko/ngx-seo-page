@@ -1,4 +1,6 @@
 sudo: required
+services:
+  - xvfb
 language: node_js
 
 node_js:
@@ -16,11 +18,12 @@ before_install:
   - export DISPLAY=:99.0
 
 before_script:
-   - "sh -e /etc/init.d/xvfb start"
    - npm install -g --silent @angular/cli
 
 script:
+   - npm run build
    - npm run test
+   - npm run lint
 
 after_success:
    - npm run codacy
