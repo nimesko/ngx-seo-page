@@ -5,27 +5,22 @@ import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { Page, SchemaData } from './page.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PageService {
-
   private metatags: HTMLMetaElement[];
 
-  private readonly schemaBaseObject: object;
+  private readonly schemaBaseObject: Record<string, unknown>;
   private readonly schemaElement: HTMLScriptElement;
   private readonly canonicalLinkElement: HTMLLinkElement;
 
-  constructor(
-    @Inject(DOCUMENT) private document: any,
-    private title: Title,
-    private meta: Meta
-  ) {
+  constructor(@Inject(DOCUMENT) private document: any, private title: Title, private meta: Meta) {
     this.schemaElement = this.document.createElement('script');
     this.canonicalLinkElement = this.document.createElement('link');
     this.canonicalLinkElement.setAttribute('rel', 'canonical');
     this.schemaElement.type = 'application/ld+json';
     this.schemaBaseObject = {
-      '@context': 'http://schema.org'
+      '@context': 'http://schema.org',
     };
     this.metatags = [];
   }
@@ -44,11 +39,11 @@ export class PageService {
   }
 
   setMetatags(metatags: MetaDefinition[]): void {
-    this.metatags.push(...metatags.map(metatag => this.meta.addTag(metatag)));
+    this.metatags.push(...metatags.map((metatag) => this.meta.addTag(metatag)));
   }
 
   removeMetatags(): void {
-    this.metatags.map(metatag => this.meta.removeTagElement(metatag));
+    this.metatags.map((metatag) => this.meta.removeTagElement(metatag));
   }
 
   updateMetatags(metatags: MetaDefinition[] = []): void {
@@ -59,7 +54,10 @@ export class PageService {
   }
 
   setSchema(schema: SchemaData): void {
-    this.schemaElement.text = JSON.stringify({ ...this.schemaBaseObject, ...schema });
+    this.schemaElement.text = JSON.stringify({
+      ...this.schemaBaseObject,
+      ...schema,
+    });
     if (!this.document.contains(this.schemaElement)) {
       this.document.body.appendChild(this.schemaElement);
     }
@@ -99,5 +97,4 @@ export class PageService {
       this.removeCanonical();
     }
   }
-
 }

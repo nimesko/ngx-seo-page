@@ -6,10 +6,48 @@ import { SchemaData } from './page.model';
 import { PageService } from './page.service';
 
 describe('PageService', () => {
-
   const queryCanonicalLink = 'link[rel="canonical"]';
   const queryScriptApplicationJsonLd = 'script[type="application/ld+json"]';
   const queryMetaTag = 'meta';
+  const generateTitle = () => `Random Title Generated - ${Math.random() * 1000}`;
+  const generateSchema = () => ({
+    '@type': 'WebSite',
+    name: 'Github',
+    url: 'https://github.com',
+  });
+  const generateMetatags = () => [
+    {
+      name: 'test',
+      content: 'another test',
+    },
+    {
+      property: 'abc',
+      content: 'xpto',
+    },
+    {
+      charset: '1',
+      content: '2',
+      httpEquiv: '3',
+      id: '4',
+      itemprop: '5',
+      name: '6',
+      property: '7',
+      scheme: '8',
+      url: '9',
+    },
+  ];
+  const convertMetaElementToMetaDefinition = (meta: NodeListOf<HTMLMetaElement>) =>
+    Array.from(meta)
+      .map((m) =>
+        Object.values(m.attributes)
+          .map((a) => {
+            const obj = {};
+            obj[a.name] = a.value;
+            return obj;
+          })
+          .reduce((a, b) => ({ ...a, ...b }))
+      )
+      .reduce((a, b) => ({ ...a, ...b })) as MetaDefinition[];
 
   let pageService: PageService;
   let doc: Document;
@@ -17,49 +55,10 @@ describe('PageService', () => {
   let spyOfUpdateSchema: any;
   let spyOfUpdateCanonicalLink: any;
 
-  function generateTitle(): string {
-    return `Random Title Generated - ${Math.random() * 1000}`;
-  }
-
-  function generateMetatags() {
-    return [
-      {
-        name: 'test', content: 'another test'
-      },
-      {
-        property: 'abc', content: 'xpto'
-      },
-      {
-        charset: '1', content: '2', httpEquiv: '3', id: '4', itemprop: '5', name: '6', property: '7', scheme: '8', url: '9'
-      }
-    ];
-  }
-
-  function convertMetaElementToMetaDefinition(meta: NodeListOf<HTMLMetaElement>): MetaDefinition[] {
-    return Array.from(meta)
-      .map(m => Object.values(m.attributes)
-        .map(a => {
-          const obj = {};
-          obj[a.name] = a.value;
-          return obj;
-        })
-        .reduce((a, b) => ({ ...a, ...b }))
-      )
-      .reduce((a, b) => ({ ...a, ...b })) as MetaDefinition[];
-  }
-
-  function generateSchema(): SchemaData {
-    return {
-      '@type': 'WebSite',
-      name: 'Github',
-      url: 'https://github.com'
-    };
-  }
-
   beforeEach(() => {
     TestBed.configureTestingModule({}).compileComponents();
-    pageService = TestBed.get(PageService);
-    doc = TestBed.get(DOCUMENT);
+    pageService = TestBed.inject(PageService);
+    doc = TestBed.inject(DOCUMENT);
     spyOfUpdateMetatags = spyOn(pageService, 'updateMetatags').and.callThrough();
     spyOfUpdateSchema = spyOn(pageService, 'updateSchema').and.callThrough();
     spyOfUpdateCanonicalLink = spyOn(pageService, 'updateCanonicalLink').and.callThrough();
@@ -87,7 +86,7 @@ describe('PageService', () => {
     expect(doc.querySelectorAll(queryScriptApplicationJsonLd).length).toEqual(0);
     expect(doc.querySelectorAll(queryCanonicalLink).length).toEqual(0);
     pageService.updatePage({
-      title: currentTitle
+      title: currentTitle,
     });
     expect(doc.title).toEqual(currentTitle);
     expect(doc.title).not.toEqual(previousTitle);
@@ -112,7 +111,8 @@ describe('PageService', () => {
     expect(doc.querySelectorAll(queryScriptApplicationJsonLd).length).toEqual(0);
     expect(doc.querySelectorAll(queryCanonicalLink).length).toEqual(0);
     pageService.updatePage({
-      title, metatags
+      title,
+      metatags,
     });
     expect(doc.title).toEqual(title);
     expect(doc.title).not.toEqual(previousTitle);
@@ -122,8 +122,10 @@ describe('PageService', () => {
     expect(spyOfUpdateSchema).toHaveBeenCalled();
     expect(spyOfUpdateCanonicalLink).toHaveBeenCalled();
     expect(metatags).not.toEqual(convertMetaElementToMetaDefinition(previousMetatags));
-    metatags.forEach(meta => {
-      const properties = Object.entries(meta).map(e => e.reduce((a, b) => `[${a}="${b}"]`)).join('');
+    metatags.forEach((meta) => {
+      const properties = Object.entries(meta)
+        .map((e) => e.reduce((a, b) => `[${a}='${b}']`))
+        .join('');
       expect(doc.querySelector(`meta${properties}`)).toBeDefined();
     });
     pageService.updateMetatags();
@@ -141,7 +143,8 @@ describe('PageService', () => {
     expect(doc.querySelectorAll(queryScriptApplicationJsonLd).length).toEqual(0);
     expect(doc.querySelectorAll(queryCanonicalLink).length).toEqual(0);
     pageService.updatePage({
-      title, schema
+      title,
+      schema,
     });
     expect(doc.querySelectorAll(queryScriptApplicationJsonLd).length).toEqual(1);
     expect(doc.title).toEqual(title);
@@ -161,7 +164,8 @@ describe('PageService', () => {
     const previousMetaDefinition = convertMetaElementToMetaDefinition(previousMetatags);
     const title = generateTitle();
     pageService.updatePage({
-      title, canonical: 'https://www.github.com/'
+      title,
+      canonical: 'https://www.github.com/',
     });
     expect(doc.querySelectorAll(queryScriptApplicationJsonLd).length).toEqual(0);
     expect(doc.title).toEqual(title);
@@ -175,5 +179,4 @@ describe('PageService', () => {
     pageService.updateSchema();
     pageService.updateCanonicalLink();
   });
-
 });

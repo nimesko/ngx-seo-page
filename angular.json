@@ -25,19 +25,19 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/ngx-seo-page/tsconfig.lib.json",
-              "projects/ngx-seo-page/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/ngx-seo-page/**/*.ts",
+              "projects/ngx-seo-page/**/*.html"
             ]
           }
         }
       }
     }
   },
-  "defaultProject": "ngx-seo-page"
+  "defaultProject": "ngx-seo-page",
+  "cli": {
+    "analytics": "fa425cf4-b926-433a-8ea3-5db0b01d5db5"
+  }
 }

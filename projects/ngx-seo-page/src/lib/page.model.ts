@@ -8,6 +8,6 @@ export interface Page {
 }
 
 export interface SchemaData {
-  '@type': string;
   [propname: string]: string | number | boolean | SchemaData;
+  '@type': string;
 }
