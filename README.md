@@ -1,4 +1,4 @@
-<h1 align="center">Ngx SEO Page</h1>
+<h1 align="center">NGX SEO Page</h1>
 <p align="center">
   Library that facilitates the management of canonical links, metatags, structured data and the title of web pages.
 </p>
@@ -26,7 +26,7 @@ It is of utmost importance to use these two artifacts to succeed in SEO. And as 
 
 ## Installation
 
-Use the node package manager to install: `npm i ngx-seo-page` or yarn  `yarn add ngx-seo-page` and its done!
+Use the node package manager to install: `npm i ngx-seo-page` or yarn `yarn add ngx-seo-page` and its done!
 
 There is no more configuration to install.
 
@@ -34,7 +34,7 @@ There is no more configuration to install.
 
 It is very simple to use this library but, first of all, I advise its use in two points:
 
-* If you are using a [Resolve](https://angular.io/api/router/Resolve), use [tap](https://www.learnrxjs.io/operators/utility/do.html) to use the library
+- If you are using a [Resolve](https://angular.io/api/router/Resolve), use [tap](https://www.learnrxjs.io/operators/utility/do.html) to use the library
 
 ```typescript
 import { Injectable } from '@angular/core';
@@ -48,14 +48,10 @@ import { PageService } from 'ngx-seo-page';
 import { ApiService } from '@application/core/api/api.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RandomResolverService implements Resolve<any> {
-
-  constructor(
-    private apiService: ApiService,
-    private pageService: PageService
-  ) { }
+  constructor(private apiService: ApiService, private pageService: PageService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     return this.apiService.fetchSomeRandomData().pipe(
@@ -65,26 +61,24 @@ export class RandomResolverService implements Resolve<any> {
           schema: {
             '@type': 'WebSite',
             name: 'Github',
-            url: 'https://github.com'
+            url: 'https://github.com',
           },
           metatags: [
             { name: 'description', content: 'Description XPTO' },
             { property: 'og:url', content: 'https://github.com/' },
-            { property: 'og:title', content: 'Github' }
+            { property: 'og:title', content: 'Github' },
           ],
-          canonical: 'https://www.github.com/'
+          canonical: 'https://www.github.com/',
         });
       })
     );
   }
-
 }
 ```
 
-* But you you are not using a Resolve and just a simple component, it is preferable that you place inside on [OnInit](https://angular.io/api/core/OnInit)
+- But you you are not using a Resolve and just a simple component, it is preferable that you place inside on [OnInit](https://angular.io/api/core/OnInit)
 
 ```typescript
-
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -94,13 +88,10 @@ import { PageService } from 'ngx-seo-page';
   selector: 'nmk-random',
   templateUrl: './random.component.html',
   styleUrls: ['./random.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RandomComponent implements OnInit {
-
-  constructor(
-    private pageService: PageService
-  ) {}
+  constructor(private pageService: PageService) {}
 
   ngOnInit() {
     this.pageService.updatePage({
@@ -108,21 +99,21 @@ export class RandomComponent implements OnInit {
       schema: {
         '@type': 'WebSite',
         name: 'Github',
-        url: 'https://github.com'
+        url: 'https://github.com',
       },
       metatags: [
         { name: 'description', content: 'Description XPTO' },
         { property: 'og:url', content: 'https://github.com/' },
-        { property: 'og:title', content: 'Github' }
+        { property: 'og:title', content: 'Github' },
       ],
-      canonical: 'https://www.github.com/'
+      canonical: 'https://www.github.com/',
     });
   }
-
 }
 ```
 
 ## Contributing
+
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
