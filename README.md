@@ -4,8 +4,6 @@
 </p>
 <div align="center">
   <img alt="Build" src="https://img.shields.io/travis/nimesko/ngx-seo-page.svg">
-  <img alt="Code coverage" src="https://img.shields.io/codacy/coverage/add8d2b1eb2c4fff98f55c0392e88d1f.svg">
-  <img alt="Dependencies" src="https://img.shields.io/david/nimesko/ngx-seo-page.svg">
   <img alt="Last commit" src="https://img.shields.io/github/last-commit/nimesko/ngx-seo-page.svg">
   <img alt="Stats" src="https://img.shields.io/npm/dw/ngx-seo-page.svg">
   <img alt="Collaborators" src="https://img.shields.io/npm/collaborators/ngx-seo-page.svg">

@@ -1,13 +1,9 @@
 import { MetaDefinition } from '@angular/platform-browser';
+import { WithContext, Thing } from 'schema-dts';
 
-export interface Page {
+export interface Page<T extends Thing> {
   title?: string;
-  metatags?: MetaDefinition[];
-  schema?: SchemaData;
+  metaTags?: MetaDefinition[];
+  schema?: WithContext<T>;
   canonical?: string;
-}
-
-export interface SchemaData {
-  [propname: string]: string | number | boolean | SchemaData;
-  '@type': string;
 }

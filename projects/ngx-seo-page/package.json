@@ -9,7 +9,7 @@
     "angular universal",
     "ssr"
   ],
-  "version": "2.0.2",
+  "version": "3.0.0",
   "author": {
     "name": "Rogerio Tristão Junior",
     "email": "rogerio.junior@outlook.com",
@@ -22,8 +22,9 @@
   "homepage": "https://github.com/nimesko/ngx-seo-page",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/common": "~11.0.5",
-    "@angular/core": "~11.0.5",
-    "@angular/platform-browser": "~11.0.5"
+    "@angular/common": "^14.2.1",
+    "@angular/core": "^14.2.1",
+    "@angular/platform-browser": "^14.2.1",
+    "schema-dts": "^1.1.0"
   }
 }

@@ -1,16 +1,16 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
+import { WithContext, Thing } from 'schema-dts';
 
-import { Page, SchemaData } from './page.model';
+import { Page } from './page.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PageService {
-  private metatags: HTMLMetaElement[];
+  private metaTags: HTMLMetaElement[];
 
-  private readonly schemaBaseObject: Record<string, unknown>;
   private readonly schemaElement: HTMLScriptElement;
   private readonly canonicalLinkElement: HTMLLinkElement;
 
@@ -19,15 +19,12 @@ export class PageService {
     this.canonicalLinkElement = this.document.createElement('link');
     this.canonicalLinkElement.setAttribute('rel', 'canonical');
     this.schemaElement.type = 'application/ld+json';
-    this.schemaBaseObject = {
-      '@context': 'http://schema.org',
-    };
-    this.metatags = [];
+    this.metaTags = [];
   }
 
-  updatePage(page: Page): void {
+  updatePage<T extends Thing>(page: Page<T>): void {
     this.setTitle(page.title);
-    this.updateMetatags(page.metatags);
+    this.updateMetatags(page.metaTags);
     this.updateCanonicalLink(page.canonical);
     this.updateSchema(page.schema);
   }
@@ -38,26 +35,23 @@ export class PageService {
     }
   }
 
-  setMetatags(metatags: MetaDefinition[]): void {
-    this.metatags.push(...metatags.map((metatag) => this.meta.addTag(metatag)));
+  setMetatags(metaTags: MetaDefinition[]): void {
+    this.metaTags.push(...metaTags.map((metaTag) => this.meta.addTag(metaTag) as HTMLMetaElement));
   }
 
   removeMetatags(): void {
-    this.metatags.map((metatag) => this.meta.removeTagElement(metatag));
+    this.metaTags.map((metaTag) => this.meta.removeTagElement(metaTag));
   }
 
-  updateMetatags(metatags: MetaDefinition[] = []): void {
+  updateMetatags(metaTags: MetaDefinition[] = []): void {
     this.removeMetatags();
-    if (metatags) {
-      this.setMetatags(metatags);
+    if (metaTags) {
+      this.setMetatags(metaTags);
     }
   }
 
-  setSchema(schema: SchemaData): void {
-    this.schemaElement.text = JSON.stringify({
-      ...this.schemaBaseObject,
-      ...schema,
-    });
+  setSchema<T extends Thing>(schema: WithContext<T>): void {
+    this.schemaElement.text = JSON.stringify(schema);
     if (!this.document.contains(this.schemaElement)) {
       this.document.body.appendChild(this.schemaElement);
     }
@@ -69,7 +63,7 @@ export class PageService {
     }
   }
 
-  updateSchema(schema?: SchemaData): void {
+  updateSchema<T extends Thing>(schema?: WithContext<T>): void {
     if (schema) {
       this.setSchema(schema);
     } else {
