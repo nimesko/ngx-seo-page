@@ -3,6 +3,7 @@
   Library that facilitates the management of canonical links, metatags, structured data and the title of web pages.
 </p>
 <div align="center">
+  <img alt="Health" src="https://snyk.io/advisor/npm-package/ngx-seo-page/badge.svg">
   <img alt="Build" src="https://img.shields.io/travis/nimesko/ngx-seo-page.svg">
   <img alt="Last commit" src="https://img.shields.io/github/last-commit/nimesko/ngx-seo-page.svg">
   <img alt="Stats" src="https://img.shields.io/npm/dw/ngx-seo-page.svg">
